@@ -1,0 +1,263 @@
+<html>
+
+<head>
+  <title>Digit88 Assignment</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row" id="desktop-header">
+      <div class="col-sm-6">
+        <h4><a id="dashboard-text">Dashboard</a></h4>
+      </div>
+      <div class="col-sm-2 col-sm-offset-2 text-right" id="org-in-header" style="display: none;">
+        <div class="form-group">
+          <select class="form-control" id="orgTop" onChange="filterByOrg()">
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-1" id="signout-menu" style="display: none;">
+        <div class="dropdown">
+          <span class="fa-stack fa-lg" data-toggle="dropdown">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x"></i>
+          </span>
+          <ul class="dropdown-menu">
+            <li><a onclick="logoutUser()">Sign Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="mobile-header">
+      <ul class="list-inline">
+        <li class="openbtn" onclick="openNav()" id="mobile-btn"> ☰ Dashboard</li>
+        <li class="text-center dropdown" id="user-icon-mobile">
+          <span class="fa-stack fa-lg" data-toggle="dropdown">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x"></i>
+          </span>
+          <ul class="dropdown-menu">
+            <li><a onclick="logoutUser()">Sign Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id="mySidepanel" class="sidepanel text-center">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle-thin fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x"></i>
+          </span> <span id="mobileViewUserName">User Name</span>
+          <hr>
+          <div class="form-group text-center" style="padding-left: 25%;">
+            <select class="form-control" id="orgTop" onChange="filterByOrg()">
+              <option value="Org 1">Org 1</option>
+              <option value="Org 2">Org 2</option>
+            </select>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4 text-center" id="first-page">
+        <br>
+        <div class="panel panel-default" id="login-form">
+          <div class="panel-heading text-center">
+            <h4>SIGN IN</h4>
+          </div>
+          <div class="panel-body text-center">
+            <form name="loginForm" onsubmit="return validateLoginForm()" method="post">
+              <span id="login-error" style="color:red"></span>
+              <div class="form-group">
+                <input type="text" class="form-control" id="email" placeholder="User Id / Email">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="pwd" placeholder="Password">
+              </div>
+              <button class="login-submit btn btn-primary">Submit</button>
+              <ul class="list-inline" id="login-link-list">
+                <li> <a onclick="showForgotPassword()">forgot password </a></li> /
+                <li><a onclick="showSignUpPage()">Sign Up</a></li>
+              </ul>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-default" id="reset-password" style="display: none;">
+          <div class="panel-heading text-center">
+            <h4>Change password</h4>
+          </div>
+          <div class="panel-body text-center">
+            <form name="forgotPassword" onsubmit="return changePassword()" method="post">
+              <span id="changePwd-error" style="color:red"></span>
+              <div class="form-group">
+                <input type="text" class="form-control" id="changeId" placeholder="User Id/Email S123">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="newPwd" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="newCPwd" placeholder="Confirm Password">
+              </div>
+              <button class="login-submit btn btn-primary">Submit</button>              
+            </form>
+            <a href="">back</a>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col-sm-4 col-sm-offset-4 text-center" id="signup-form" style="display: none;">
+        <div class="panel panel-default" id="signup-form">
+          <div class="panel-heading text-center">
+            <h4>SIGN UP</h4>
+          </div>
+          <div class="panel-body text-center">
+            <form name="regForm" onsubmit="return validateRegForm()" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control" id="userId" placeholder="Id (ex:- S123)" required>
+                <span id="userId-error" class="input-error"></span>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="userName" placeholder="User Name" required>
+                <span id="userName-error" class="input-error"></span>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="userEmail" placeholder="Email" required>
+                <span id="userEmail-error" class="input-error"></span>
+                <span id="emailp"></span>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="userPwd" placeholder="Password ex:- Wswd@31234" required>
+                <span id="userPwd-error" class="input-error"></span>
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" id="userDob" placeholder="Date of Birth" required>
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="userOrg" required>
+                  <option value="">Select Org</option>
+                </select>
+                <span id="userOrg-error" class="input-error"></span>
+              </div>
+              <li data-toggle='modal' href='#addOrgModel' class="btn"><a>Create Org</a></li>
+              <div class="checkbox text-left">
+                <label><input type="checkbox" id="userIsAdmin">Is Admin</label>
+              </div>
+              <button class="login-submit btn btn-primary">Sign Up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1" style="background-color: white;display: none;" id="welcome-page">
+        <br>
+        <ul class="list-inline">
+          <li class="col-sm-3 text-left">
+            <h5 id="welcome-user" style="font-weight: bold;"></h5>
+          </li>
+          <li class="col-sm-6">
+            <div class="input-group">
+              <input type="text" class="form-control" name="search" placeholder="Search" id="search-bar">
+              <span class="input-group-addon"  onclick="SearchTableData()"><i class="fa fa-search"></i></span>
+            </div>
+          </li>
+          <li class="col-sm-3 text-right" id="add-user-button">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addUserModel"><i
+                class="fa fa-plus"></i> &nbsp; Add User</button>
+          </li>
+        </ul>
+        <hr>
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>DOB</th>
+              <th id="editAdmin">Edit</th>
+              <th id="deleteAdmin">Delete</th>
+            </tr>
+          </thead>
+          <tbody id="myTB">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div id="addUserModel" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add User</h4>
+          </div>
+          <div class="modal-body" style="padding: 15px;">
+            <div class="form-group">
+              <input type="text" class="form-control" id="uid" placeholder="Id" required>
+              <span id="uid-error" class="input-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="uname" placeholder="User name" required>
+              <span id="uname-error" class="input-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="uemail" placeholder="Email" required>
+              <span id="uemail-error" class="input-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="upwd" placeholder="Password" required>
+              <span id="upwd-error" class="input-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="date" class="form-control" id="dob" placeholder="Date of Birth" required>
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="org" name ="org" required>
+                <option value="">Select Org</option>
+                <option value="Org 1">Org 1</option>
+                <option value="Org 2">Org 2</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" onclick=" return validateAddUserForm()">SAVE</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Org Model-->
+    <!-- Modal -->
+    <div id="addOrgModel" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Org</h4>
+          </div>
+          <div class="modal-body" style="padding: 15px;">
+            <div class="form-group">
+              <input type="text" class="form-control" id="addOrg" placeholder="Org Name" required>
+              <span id="uid-error" class="input-error"></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" onclick="AddOrgIntoList()">ADD</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

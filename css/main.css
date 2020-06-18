@@ -1,0 +1,96 @@
+#desktop-header, #mobile-header {
+    background-color: #fff;
+    color: black;
+    padding: 5px;
+    padding-bottom: 2px;
+}
+#login-form, #signup-form, #reset-password {
+    width: 300px;
+}
+#first-page .panel-heading {
+    height: 50px;
+    width: 300px;
+    background: #fff;
+}
+.panel-body {
+    width: 300px;
+}
+.input-error{
+    color:red;
+}
+#login-form .panel-body .form-control {
+    width: 260px;
+    height: 40px;
+}
+.login-submit {
+    background-color: #f6720e;
+}
+#login-link-list {
+    padding-top: 10px;
+    cursor: pointer;
+}
+#dashboard-text {
+    color: black;
+    text-decoration: none;
+}
+#forgot-password-links, #forgot-password-links a {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+body {
+    background-color: #e6ebf5;
+}
+@media only screen and (min-width: 600px) {
+    #mobile-header {
+        display: none;
+    }
+}
+@media only screen and (max-width: 600px) {
+    #desktop-header {
+        display: none;
+    }
+    #mobile-btn {
+        padding-top: 5px;
+    }
+    #user-icon-mobile {
+        float: right;
+        padding-right:20px;
+    }
+    #welcome-user{
+        display: none;
+    }
+}
+  .sidepanel  {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidepanel ul li {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidepanel ul li:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+  }
+  
